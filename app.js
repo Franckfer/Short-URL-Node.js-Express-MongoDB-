@@ -13,7 +13,7 @@ const app = express();
 
 //middlewares
 app.use(session({
-    secret: process.env.SECRETSESSION,
+    secret: process.env.SecretSession,
     resave: false,
     saveUninitialized: false,
     name: 'mynameis'
