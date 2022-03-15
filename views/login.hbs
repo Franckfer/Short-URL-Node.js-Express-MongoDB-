@@ -1,0 +1,37 @@
+<h1 class="text-center">Login</h1>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+
+        <form action="/auth/login" method="POST">
+        {{!-- csrfToken agrega un token a nuestro formulario --}}
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <input 
+                name="email" 
+                type="text" 
+                class="form-control mb-2" 
+                placeholder="Ingrese su Email"
+            >
+            <input 
+                name="password" 
+                type="password" 
+                class="form-control mb-2" 
+                placeholder="Ingrese su Password"
+            >
+            {{#each mensajes}}
+                <div
+                    class="alert alert-danger mb-2"
+                >
+                    {{this.msg}}
+                </div>
+            {{/each}} 
+            <button 
+                type="submit"
+                class="btn btn-primary mt-2"
+            >Ingresar
+            </button>
+ 
+        </form>
+    </div>
+    
+</div>
