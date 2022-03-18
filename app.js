@@ -1,12 +1,13 @@
 const express = require('express');
 const session = require('express-session');
-var flash = require('connect-flash');
+const flash = require('connect-flash');
 const passport = require('passport');
 const User = require('./models/User');
 const csrf = require('csurf');
 const { create } = require('express-handlebars');
 require('dotenv').config()
 require('./database/db')
+
 
 const app = express();
 

@@ -1,4 +1,3 @@
-const { log } = require('console');
 const { URL } = require('url');
 
 module.exports = (req, res, next) => {

@@ -1,0 +1,34 @@
+<h1 class="text-center">{{ user.userName }}</h1>
+<p class="text-center">Editar perfil</p>
+
+<div class="my-2 text-center">
+    {{#if image}}
+        <img 
+        src="/img/profiles/{{image}}" 
+        alt="profile IMG" 
+        class="rounded-circle"
+        >
+    {{else}}
+        <img 
+        src="/img/profiles/Charmander_2.png" 
+        alt="profile IMG" 
+        class="rounded-circle"
+        >
+    {{/if}}
+</div>
+
+<form action="/perfil?_csrf={{csrfToken}}" method="POST" enctype="multipart/form-data">
+    <input 
+        name="myFile"
+        class="form-control form-control-sm" 
+        type="file"  
+        id="formFileSm">
+    <button 
+        class="btn btn-dark my-2"
+    >
+        Cambiar imagen de perfil
+    </button>
+    {{#each mensajes }}
+        <div class="alert alert-dark mb-2">{{this.msg}}</div>
+    {{/each}} 
+</form>

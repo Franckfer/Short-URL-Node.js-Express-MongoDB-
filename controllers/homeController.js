@@ -86,6 +86,7 @@ module.exports = {
             req.flash('mensajes', [{msg: "No existe esta URL"}]);
             return res.redirect('/auth/login')   
         }
+        
     },
     eliminarUrl : async (req,res) => {
         //params hace referencia al id recibido por la url 
