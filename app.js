@@ -1,23 +1,39 @@
 const express = require('express');
 const session = require('express-session');
 const flash = require('connect-flash');
+const csrf = require('csurf');
 const passport = require('passport');
 const User = require('./models/User');
-const csrf = require('csurf');
 const { create } = require('express-handlebars');
+const MongoStore = require('connect-mongo');
 require('dotenv').config()
-require('./database/db')
+const clientDB = require('./database/db');
+const sanitize = require('express-mongo-sanitize');
+const cors = require('cors');
 
 
 const app = express();
 
+const corsOptions = {
+    credentials: true,
+    origin: process.env.PathHeroku || "*",
+    methods: ["GET", "POST"]
+}
+app.use(cors())
 
-//middlewares
 app.use(session({
     secret: process.env.SecretSession,
     resave: false,
     saveUninitialized: false,
-    name: 'mynameis'
+    name: 'mynameis',
+    store: MongoStore.create({
+        clientPromise: clientDB,
+        dbName: process.env.DBName
+    }),
+    cookie: {
+        secure: process.env.Modo === 'production',
+        maxAge: 30 * 24 * 60 * 60 * 1000
+    }
 }));
 app.use(flash());
 
@@ -57,8 +73,9 @@ app.set('views', './views');
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({extended: true}));
 
-//evita el ataque de falsificación de requests entre sitios (CSRF)
-app.use(csrf())
+app.use(csrf());    //evita el ataque de falsificación de requests entre sitios (CSRF)
+app.use(sanitize()) //evita ataques de inyecciones NoSQL a traves de scripts
+
 app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     res.locals.mensajes = req.flash('mensajes')
