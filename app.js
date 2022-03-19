@@ -34,10 +34,10 @@ app.use(session({
         clientPromise: clientDB,
         dbName: process.env.DBName,
     }),
-    // cookie: {
-    //         secure: process.env.Modo === 'production' ? true : false,
-    //         maxAge: 30 * 24 * 60 * 60 * 1000,
-    //     },
+    cookie: {
+            secure: process.env.Modo === 'production' ? true : false,
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+        },
 }));
 app.use(flash());
 
