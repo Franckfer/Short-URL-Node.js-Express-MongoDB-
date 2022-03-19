@@ -92,7 +92,7 @@ module.exports = {
                 to: user.email, // list of receivers
                 subject: "Verifica tu cuenta de correo", // Subject line
                 text: "Hello world?", // plain text body
-                html: `<a href="http://localhost:5000/auth/confirmar-cuenta/${user.tokenConfirm}">Verifica tu cuenta aqui</a>`, // html body
+                html: `<a href="${process.env.PathHeroku || 'http://localhost:5000'}/auth/confirmar-cuenta/${user.tokenConfirm}">Verifica tu cuenta aqui</a>`, // html body
             });
 
             req.flash('mensajes', [{msg: 'Revisa tu correo electronico para validar esta cuenta'}]);
