@@ -1,7 +1,7 @@
 document.addEventListener('click', event => {
     
     if (event.target.dataset.short_url) {
-        const url = `http://localhost:5000/${event.target.dataset.short_url}`
+        const url = `${window.location.origin}/${event.target.dataset.short_url}`
         
         navigator.clipboard
             .writeText(url)
